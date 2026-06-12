@@ -1,0 +1,108 @@
+[gd_scene load_steps=13 format=3 uid="uid://c6i46hjwjrt3h"]
+
+[ext_resource type="PackedScene" uid="uid://b3cyfi43xoi3l" path="res://player.tscn" id="1_f3sb7"]
+[ext_resource type="PackedScene" uid="uid://bt2da7sapjf2b" path="res://collectible.tscn" id="2_fj7yv"]
+[ext_resource type="PackedScene" uid="uid://4liewtquq7cr" path="res://ui.tscn" id="3_tlwt5"]
+[ext_resource type="AudioStream" uid="uid://bsuajqhpdhki5" path="res://ocean waves.mp3" id="4_aqk2v"]
+[ext_resource type="PackedScene" uid="uid://df2dot5add287" path="res://win_screen.tscn" id="5_036b0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fj7yv"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tlwt5"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_aqk2v"]
+size = Vector2(200, 200)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_036b0"]
+transparency = 1
+albedo_color = Color(0.3, 0.6, 0.8, 0.7)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dwbse"]
+
+[sub_resource type="Sky" id="Sky_pkg7o"]
+sky_material = SubResource("ProceduralSkyMaterial_dwbse")
+
+[sub_resource type="Environment" id="Environment_gbfbk"]
+background_mode = 2
+sky = SubResource("Sky_pkg7o")
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.01
+volumetric_fog_albedo = Color(0.9056872, 0.958778, 1.0042744, 1)
+volumetric_fog_emission_energy = 0.0
+volumetric_fog_sky_affect = 0.5
+
+[node name="World" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_f3sb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.9540653, 0)
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_fj7yv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_tlwt5")
+
+[node name="Water" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+mesh = SubResource("PlaneMesh_aqk2v")
+surface_material_override/0 = SubResource("StandardMaterial3D_036b0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0, 0, 0)
+light_color = Color(1, 0.95, 0.8, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_gbfbk")
+
+[node name="Collectible" parent="." instance=ExtResource("2_fj7yv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.258858, 2.0931687, -7.543097)
+item_name = "Plastic bottle"
+description = ""
+
+[node name="Collectible2" parent="." instance=ExtResource("2_fj7yv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.18263, 1.4246483, 3.4321022)
+item_name = "Plastic bottle"
+description = ""
+
+[node name="Collectible3" parent="." instance=ExtResource("2_fj7yv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9223785, 1.144577, 47.018414)
+item_name = "Plastic bottle"
+description = ""
+
+[node name="UI" parent="." instance=ExtResource("3_tlwt5")]
+
+[node name="Collectible4" parent="." instance=ExtResource("2_fj7yv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.100365, 1.3633461, -9.023043)
+item_name = "Plastic bottle"
+description = ""
+
+[node name="Collectible5" parent="." instance=ExtResource("2_fj7yv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.907375, 1.817421, 22.845556)
+item_name = "Plastic bottle"
+description = ""
+
+[node name="Collectible6" parent="." instance=ExtResource("2_fj7yv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.76176, 1.4785175, 24.349396)
+item_name = "Plastic bottle"
+description = ""
+
+[node name="Collectible7" parent="." instance=ExtResource("2_fj7yv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.059513, 1.1951389, 9.762115)
+item_name = "Plastic bottle"
+description = ""
+
+[node name="Collectible8" parent="." instance=ExtResource("2_fj7yv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.319347, 1.8983192, 43.005222)
+item_name = "Plastic bottle"
+description = ""
+
+[node name="Ocean waves sound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_aqk2v")
+volume_db = 5.0
+autoplay = true
+
+[node name="WinScreen" parent="." instance=ExtResource("5_036b0")]
